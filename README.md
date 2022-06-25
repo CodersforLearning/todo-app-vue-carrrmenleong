@@ -1,10 +1,1 @@
-# todo-app
-
-## Project setup
-```
-git clone https://github.com/ProgrammerNotesYT/vue-todo-app.git
-cd vue-todo-app
-npm install
-npm run serve
-```
-
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=8053548&assignment_repo_type=AssignmentRepo)
