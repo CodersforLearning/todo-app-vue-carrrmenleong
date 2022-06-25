@@ -76,21 +76,18 @@ export default {
       statuses: ["to-do", "in-progress", "finished"],
 
       /* Status could be: 'to-do' / 'in-progress' / 'finished' */
-      tasks: [
-        {
-          name: "Steal bananas from the supermarket.",
-          status: "to-do",
-        },
-        {
-          name: "Eat 1 kg chocolate in 1 hour.",
-          status: "in-progress",
-        },
-        {
-          name: "Create YouTube video.",
-          status: "finished",
-        },
-      ],
+      tasks: [],
     };
+  },
+
+  mounted() {
+    if (localStorage.getItem("tasks")) {
+      try {
+        this.tasks = JSON.parse(localStorage.getItem("tasks"));
+      } catch (e) {
+        localStorage.removeItem("tasks");
+      }
+    }
   },
 
   methods: {
@@ -108,6 +105,7 @@ export default {
       let newIndex = this.statuses.indexOf(this.tasks[index].status);
       if (++newIndex > 2) newIndex = 0;
       this.tasks[index].status = this.statuses[newIndex];
+      this.saveTask();
     },
 
     /**
@@ -115,6 +113,7 @@ export default {
      */
     deleteTask(index) {
       this.tasks.splice(index, 1);
+      this.saveTask();
     },
 
     /**
@@ -123,6 +122,7 @@ export default {
     editTask(index) {
       this.task = this.tasks[index].name;
       this.editedTask = index;
+      this.saveTask();
     },
 
     /**
@@ -139,11 +139,17 @@ export default {
         /* We need to add new task */
         this.tasks.push({
           name: this.task,
-          status: "todo",
+          status: "to-do",
         });
       }
 
       this.task = "";
+      this.saveTask();
+    },
+
+    saveTask() {
+      const parsed = JSON.stringify(this.tasks);
+      localStorage.setItem("tasks", parsed);
     },
   },
 };
